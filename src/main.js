@@ -11,15 +11,28 @@ function setCardType(type) {
     mastercard: ["#DF6F29", "#C69347"],
     defaut: ["black", "gray"],
   }
-  ccBgColor01.setAttribute("fill", colors[type] [0])
-  ccBgColor02.setAttribute("fill", colors[type] [1])
+  ccBgColor01.setAttribute("fill", colors[type][0])
+  ccBgColor02.setAttribute("fill", colors[type][1])
   ccLogo.setAttribute("src", `cc-${type}.svg`)
 }
 //setCardType("default")
 globalThis.setCardType = setCardType
+//boas práticas, nome de variável usando camelCAse
+const securityCode = document.querySelector("#security-code")
+const securityCodePattern = {
+  mask: "0000",
+}
+const securityCodeMasked = IMask(securityCode, securityCodePattern)
 
- const securityCode = document.querySelector('#security-code')
- const securityCodePattern = {
-  mask: "0000"
- }
- const securityCodeMasked = IMask(securityCode, securityCodePattern)
+const expirationDate = document.querySelector("#expiration-date")
+const expirationDatePattern = {
+  mask: "MM{/}00",
+  blocks: {
+    MM: {
+      mask: IMask.MaskedRange,
+      from: 1,
+      to: 12,
+    },
+  },
+}
+const expirationDateMasked = IMask(expirationDate, expirationDatePattern)
